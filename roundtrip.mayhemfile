@@ -2,4 +2,4 @@ project: jsonwebtoken
 target: roundtrip
 
 cmds:
-  - cmd: /roundtrip
+  - cmd: /fuzz-roundtrip

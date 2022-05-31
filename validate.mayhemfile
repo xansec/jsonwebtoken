@@ -1,0 +1,5 @@
+project: jsonwebtoken
+target: validate 
+
+cmds:
+  - cmd: /fuzz-validate

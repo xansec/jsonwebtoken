@@ -10,6 +10,8 @@ cargo-fuzz = true
 
 [dependencies]
 libfuzzer-sys = "0.4"
+serde_json = "1.0"
+serde = {version = "1.0", features = ["derive"] }
 
 [dependencies.jsonwebtoken]
 path = ".."
@@ -20,13 +22,19 @@ features = ["arbitrary"]
 members = ["."]
 
 [[bin]]
-name = "roundtrip"
-path = "fuzz_targets/roundtrip.rs"
+name = "fuzz-roundtrip"
+path = "fuzz_targets/fuzz-roundtrip.rs"
 test = false
 doc = false
 
 [[bin]]
-name = "decode"
-path = "fuzz_targets/decode.rs"
+name = "fuzz-decode"
+path = "fuzz_targets/fuzz-decode.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "fuzz-validate"
+path = "fuzz_targets/fuzz-validate.rs"
 test = false
 doc = false

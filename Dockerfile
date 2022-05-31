@@ -13,5 +13,6 @@ RUN cd fuzz && cargo fuzz build
 # Package Stage
 FROM rustlang/rust:nightly
 
-COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/roundtrip /
-COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/decode /
+COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/fuzz-roundtrip /
+COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/fuzz-decode /
+COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/fuzz-validate /
