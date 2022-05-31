@@ -2,6 +2,7 @@
 use jsonwebtoken::errors::ErrorKind;
 use jsonwebtoken::{decode, encode, Algorithm, DecodingKey, EncodingKey, Header, Validation};
 use serde::{Deserialize, Serialize};
+use arbitrary::{Arbitrary, Unstructured};
 use libfuzzer_sys::fuzz_target;
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -13,7 +14,7 @@ struct Claims {
 }
 
 /***
-impl Arbitrary for Claims {
+impl Arbitrary<'_> for Claims {
     fn arbitrary<U>(raw: &mut U) -> Result<Self, U::Error>
     where
         U: Unstructured + ?Sized
@@ -29,7 +30,9 @@ impl Arbitrary for Claims {
 }
 ***/
 
-fuzz_target!(| input: (&[u8], String, String, String, usize) | {
+
+// fuzz_target!(| claims: Claims | {
+fuzz_target!(| input: (&[u8], String, String, String, int) | {
     let key = input.0;
     let claims = Claims {
         aud: input.1.to_owned(),
@@ -50,7 +53,7 @@ fuzz_target!(| input: (&[u8], String, String, String, usize) | {
         Err(err) => match *err.kind() {
             //ErrorKind::InvalidToken => panic!("Token is invalid"), // Example on how to handle a specific error
             //ErrorKind::InvalidIssuer => panic!("Issuer is invalid"), // Example on how to handle a specific error
-            _ => panic!("Some other errors"),
+            _ => panic!(err),
         },
     };
     //println!("{:?}", token_data.claims);
