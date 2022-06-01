@@ -1,0 +1,5 @@
+project: jsonwebtoken
+target: header 
+
+cmds:
+  - cmd: /fuzz-header

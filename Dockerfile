@@ -16,3 +16,4 @@ FROM rustlang/rust:nightly
 COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/fuzz-roundtrip /
 COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/fuzz-decode /
 COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/fuzz-validate /
+COPY --from=builder /src/fuzz/target/x86_64-unknown-linux-gnu/release/fuzz-header /

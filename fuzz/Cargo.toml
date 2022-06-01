@@ -39,3 +39,9 @@ name = "fuzz-validate"
 path = "fuzz_targets/fuzz-validate.rs"
 test = false
 doc = false
+
+[[bin]]
+name = "fuzz-header"
+path = "fuzz_targets/fuzz-header.rs"
+test = false
+doc = false
