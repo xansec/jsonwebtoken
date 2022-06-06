@@ -34,7 +34,7 @@ fuzz_target!(| input: (&[u8], String, String, String, usize) | {
         Ok(c) => c,
         Err(err) => match *err.kind() {
             //ErrorKind::InvalidToken => panic!(), // Example on how to handle a specific error
-            _ => std::panic::panic_any(err),
+            //_ => std::panic::panic_any(err),
         },
     };
     //println!("{:?}", token_data.claims);
