@@ -41,7 +41,7 @@ fuzz_target!(| input: (&[u8], String, String, String, usize) | {
     };
     let token = match encode(&Header::default(), &claims, &EncodingKey::from_secret(key)) {
         Ok(t) => t,
-        Err(_) => panic!(), // in practice you would return the error
+        Err(_) => return, // in practice you would return the error
     };
 
     let mut validation = Validation::new(Algorithm::HS256);
@@ -49,11 +49,12 @@ fuzz_target!(| input: (&[u8], String, String, String, usize) | {
     validation.set_audience(&[input.1]);
     let _ = match decode::<Claims>(&token, &DecodingKey::from_secret(key), &validation) {
         Ok(c) => c,
-        Err(err) => match *err.kind() {
+        Err(_) => return,
+        //Err(err) => match *err.kind() {
             //ErrorKind::InvalidToken => panic!("Token is invalid"), // Example on how to handle a specific error
             //ErrorKind::InvalidIssuer => panic!("Issuer is invalid"), // Example on how to handle a specific error
             //_ => std::panic::panic_any(err),
-        },
+        //},
     };
     //println!("{:?}", token_data.claims);
     //println!("{:?}", token_data.header);
